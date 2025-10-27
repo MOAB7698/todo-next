@@ -1,6 +1,6 @@
 const theme = {
   colors: {
-    background: "#0f172a0d", // slate-900 with alpha
+    background: "#0f172a0d", 
     surface: "#ffffff",
     text: "#0f172a",
     border: "#e2e8f0",

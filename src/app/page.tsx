@@ -13,14 +13,14 @@ export default function Home() {
   useEffect(() => { load(); }, [load]);
 
   return (
-    <main style={{ padding: 24, maxWidth: 900, margin: "0 auto" }}>
+    <main style={{ padding: 24, maxWidth: 900, margin: "0 auto", minHeight: "84vh"}}>
       <h2>لیست تسک‌ها</h2>
 
       <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8, marginBottom: 8 }}>
         <Input placeholder="جست‌وجو..." value={query} onChange={e => setQuery(e.target.value)} />
         <Button variant={filter === "all" ? "primary" : "secondary"} onClick={() => setFilter("all")}>همه</Button>
-        <Button variant={filter === "pending" ? "primary" : "secondary"} onClick={() => setFilter("pending")}>Pending</Button>
-        <Button variant={filter === "completed" ? "primary" : "secondary"} onClick={() => setFilter("completed")}>Completed</Button>
+        <Button variant={filter === "pending" ? "primary" : "secondary"} onClick={() => setFilter("pending")}>فعال</Button>
+        <Button variant={filter === "completed" ? "primary" : "secondary"} onClick={() => setFilter("completed")}>تکمیل شده</Button>
       </div>
 
       <AddTaskForm />
@@ -29,9 +29,9 @@ export default function Home() {
         <p>در حال بارگذاری...</p>
       ) : (
         <>
-          <h3>Pending</h3>
-          <TaskList tasks={grouped.pending} emptyText="تسک معوق نداریم 🎉" />
-          <h3 style={{ marginTop: 16 }}>Completed</h3>
+          <h3>فعال</h3>
+          <TaskList tasks={grouped.pending} emptyText="تسک فعالی نداریم" />
+          <h3 style={{ marginTop: 16 }}>تکمیل شده</h3>
           <TaskList tasks={grouped.completed} emptyText="هیچ تسک تکمیل‌شده‌ای نیست." />
         </>
       )}

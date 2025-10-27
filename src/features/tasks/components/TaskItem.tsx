@@ -6,7 +6,8 @@ import Input from "@components/ui/Input";
 import { useState } from "react";
 
 const Item = styled.div<{ completed: boolean }>`
-  background: ${({ completed, theme }) => (completed ? theme.colors.successSoft : theme.colors.surface)};
+  background: ${({ completed, theme }) =>
+    completed ? theme.colors.successSoft : theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   padding: 12px;
   border-radius: 10px;
@@ -18,10 +19,27 @@ const Item = styled.div<{ completed: boolean }>`
 
 const Title = styled.span<{ completed: boolean }>`
   text-decoration: ${({ completed }) => (completed ? "line-through" : "none")};
+  flex: 1;
+`;
+
+const Left = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+`;
+
+const Right = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
 `;
 
 export default function TaskItem({
-  task, onToggle, onDelete, onEdit
+  task,
+  onToggle,
+  onDelete,
+  onEdit,
 }: {
   task: Task;
   onToggle: (completed: boolean) => void;
@@ -39,29 +57,46 @@ export default function TaskItem({
 
   return (
     <Item completed={task.completed}>
-      <div style={{ flex: 1, display: "flex", gap: 10, alignItems: "center" }}>
+      <Left>
+        {/* ✅ چک‌باکس برای تغییر وضعیت */}
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={(e) => onToggle(e.target.checked)}
+          style={{ width: 18, height: 18 }}
+        />
+
         {editing ? (
-          <Input value={value} onChange={e => setValue(e.target.value)} onKeyDown={e => e.key === "Enter" && save()} />
+          <Input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && save()}
+            autoFocus
+          />
         ) : (
           <Title completed={task.completed}>{task.title}</Title>
         )}
-      </div>
-      <div style={{ display: "flex", gap: 8 }}>
+      </Left>
+
+      <Right>
         {editing ? (
           <>
-            <Button variant="secondary" onClick={() => setEditing(false)}>لغو</Button>
+            <Button variant="secondary" onClick={() => setEditing(false)}>
+              لغو
+            </Button>
             <Button onClick={save}>ذخیره</Button>
           </>
         ) : (
           <>
-            <Button variant="secondary" onClick={() => onToggle(!task.completed)}>
-              {task.completed ? "Mark Pending" : "Mark Done"}
+            <Button variant="secondary" onClick={() => setEditing(true)}>
+              ویرایش
             </Button>
-            <Button variant="secondary" onClick={() => setEditing(true)}>ویرایش</Button>
-            <Button variant="danger" onClick={onDelete}>حذف</Button>
+            <Button variant="danger" onClick={onDelete}>
+              حذف
+            </Button>
           </>
         )}
-      </div>
+      </Right>
     </Item>
   );
 }

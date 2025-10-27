@@ -12,9 +12,11 @@ const GlobalStyles = createGlobalStyle`
   h1,h2,h3 { 
   margin: 8px 0;
    }
-   button, h1,h2,h3 { 
+   button, h1,h2,h3,input { 
       font-family: var(--font-iransans), sans-serif;
 }
 `;
 
 export default GlobalStyles;
+
+

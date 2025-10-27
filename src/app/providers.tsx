@@ -1,17 +1,18 @@
 "use client";
-import { Provider } from "react-redux";
-import { store } from "@store/store";
+
+import { Provider as ReduxProvider } from "react-redux";
 import { ThemeProvider } from "styled-components";
+import { store } from "@store/store";
 import GlobalStyles from "@styles/GlobalStyles";
-import theme from "@styles/tokens";
+import { theme } from "@styles/theme";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <Provider store={store}>
+    <ReduxProvider store={store}>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         {children}
       </ThemeProvider>
-    </Provider>
+    </ReduxProvider>
   );
 }
