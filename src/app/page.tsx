@@ -1,66 +1,40 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect } from "react";
+import TaskList from "@features/tasks/components/TaskList";
+import AddTaskForm from "@features/tasks/components/AddTaskForm";
+import { useTasks } from "@features/tasks/hooks/useTasks";
+import Button from "@components/ui/Button";
+import Input from "@components/ui/Input";
 
 export default function Home() {
+  const { load, loading, grouped, filter, setFilter, query, setQuery } = useTasks();
+
+  useEffect(() => { load(); }, [load]);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main style={{ padding: 24, maxWidth: 900, margin: "0 auto" }}>
+      <h2>لیست تسک‌ها</h2>
+
+      <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 8, marginBottom: 8 }}>
+        <Input placeholder="جست‌وجو..." value={query} onChange={e => setQuery(e.target.value)} />
+        <Button variant={filter === "all" ? "primary" : "secondary"} onClick={() => setFilter("all")}>همه</Button>
+        <Button variant={filter === "pending" ? "primary" : "secondary"} onClick={() => setFilter("pending")}>Pending</Button>
+        <Button variant={filter === "completed" ? "primary" : "secondary"} onClick={() => setFilter("completed")}>Completed</Button>
+      </div>
+
+      <AddTaskForm />
+
+      {loading ? (
+        <p>در حال بارگذاری...</p>
+      ) : (
+        <>
+          <h3>Pending</h3>
+          <TaskList tasks={grouped.pending} emptyText="تسک معوق نداریم 🎉" />
+          <h3 style={{ marginTop: 16 }}>Completed</h3>
+          <TaskList tasks={grouped.completed} emptyText="هیچ تسک تکمیل‌شده‌ای نیست." />
+        </>
+      )}
+    </main>
   );
 }
