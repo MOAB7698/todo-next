@@ -2,12 +2,19 @@
 import styled from "styled-components";
 
 const Bar = styled.footer`
-  padding: 16px 24px;
-  margin-top: 32px;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
   background: ${({ theme }) => theme.colors.background2};
   text-align: center;
-  opacity: 0.7;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  min-height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px -6px 10px 0px ${({ theme }) => theme.colors.shadowDark};
+}
 `;
 
 export default function Footer() {

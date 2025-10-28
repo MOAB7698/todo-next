@@ -8,7 +8,10 @@ declare module "styled-components" {
       danger: string;
       success: string;
       successSoft: string;
+      primarySoft: string;
+      dangerSoft: string;
       background: string;
+      shadowDark: string;
       background2: string;
       surface: string;
       text: string;

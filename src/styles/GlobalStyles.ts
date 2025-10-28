@@ -10,11 +10,12 @@ const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.colors.text};
   }
   h1,h2,h3 { 
-  margin: 8px 0;
-   }
-   button, h1,h2,h3,input { 
-      font-family: var(--font-iransans), sans-serif;
-}
+    margin: 8px 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  button, h1,h2,h3,input { 
+    font-family: var(--font-iransans), sans-serif;
+  }
 `;
 
 export default GlobalStyles;

@@ -13,9 +13,8 @@ const Bar = styled.header`
 export default function Header() {
   return (
     <Bar>
-      <Link href="/">📝 ToDo</Link>
+      <Link href="/">وظایف</Link>
       <nav style={{ display: "flex", gap: 12 }}>
-        <Link href="/(tasks)">Tasks</Link>
       </nav>
     </Bar>
   );
